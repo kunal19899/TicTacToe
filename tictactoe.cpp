@@ -63,6 +63,18 @@ void input()
     }
 }
 
+bool rowCrossed()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (board[i][0] == board[i][1] == board[i][2])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void logic()
 {
     if (curr_player == 2)
@@ -72,6 +84,13 @@ void logic()
     else{
         board[colInput2][rowInput2] = 'O';
     }
+
+    if (rowCrossed())
+    {
+        gameOver = true;
+    }
+
+
 }
 
 void test()
@@ -87,5 +106,16 @@ int main()
         draw();
         input();
         logic();
+    }
+
+    system("clear");
+    draw();
+    cout << "Winner is ";
+    if (curr_player == 2)
+    {
+        cout << player1 << endl;
+    }
+    else{
+        cout << player2 <<endl;
     }
 }
