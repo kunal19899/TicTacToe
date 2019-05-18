@@ -75,6 +75,18 @@ bool rowCrossed()
     return false;
 }
 
+bool colCrossed()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void logic()
 {
     if (curr_player == 2)
@@ -85,7 +97,7 @@ void logic()
         board[colInput2][rowInput2] = 'O';
     }
 
-    if (rowCrossed())
+    if (rowCrossed() || colCrossed())
     {
         gameOver = true;
     }
