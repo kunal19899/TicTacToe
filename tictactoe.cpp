@@ -2,13 +2,18 @@
 #include <string>
 #include <time.h>
 
+
+///error made:
+////        -colInputs are row inouts
+////        -rowInputs are column inputs
+
 using namespace std;
 
 bool gameOver;
 char board[3][3];
 string player1;
 string player2;
-int colInput1, rowInput1, colInput2, rowInput2;
+int colInput1, rowInput1, colInput2, rowInput2, tempCol, tempRow;
 int curr_player;
 
 
@@ -63,18 +68,22 @@ void input()
 {
     if (curr_player == 1)
     {
-        cout << "Enter Column Number: ";
-        cin >> colInput1;
         cout << "Enter Row Number: ";
+        cin >> colInput1;
+        tempCol = colInput1;
+        cout << "Enter Column Number: ";
         cin >> rowInput1;
+        tempRow = rowInput1;
         curr_player = 2;
     }
     else if (curr_player == 2)
     {
         cout << "Enter Row Number: ";
         cin >> colInput2;
+        tempCol = colInput2;
         cout << "Enter Column Number: ";
         cin >> rowInput2;
+        tempRow = rowInput2;
         curr_player = 1;
     }
 }
@@ -148,8 +157,17 @@ bool error_check()
         return true;
     }
 
-    return false;
+    if (board[tempCol-1][tempRow-1] != ' ')
+    {
+        cout << "Cell already in use" << endl;
+        //sleep(3);                                         //////check how to use function 
+        if (curr_player == 1)
+            curr_player = 2;
+        else{curr_player = 1;}
+        return true;
+    }
 
+    return false;
 }
 
 int main()
