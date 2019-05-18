@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <time.h>
-
 
 ///error made:
 ////        -colInputs are row inouts
@@ -15,7 +13,22 @@ string player1;
 string player2;
 int colInput1, rowInput1, colInput2, rowInput2, tempCol, tempRow;
 int curr_player;
+int gameMode = -1;
 
+
+int main_menu()
+{
+    system("clear");
+    cout << "TIC-TAC-TOE Game" << endl << endl << "Choose Game Mode" << endl << endl << "1. Single Player" << endl << "2. MultiPlayer" << endl << "3. Options" << endl;
+    cout << endl << "Which Mode: ";
+    cin >> gameMode;
+    if (gameMode > 3)
+    {
+        return 0;
+    }
+
+    return gameMode;
+}
 
 void setup()
 {
@@ -27,25 +40,6 @@ void setup()
             board[i][j] = ' ';
         }
     }
-
-    cout << "Player 1 [X]: ";
-    cin >> player1;
-
-    ///error checking here for player 1 inpout format
-
-
-    ///////
-
-    cout << "Player 2 [O]: ";
-    cin >> player2;
-
-    //error checking here for player 2 input format
-
-
-
-    /////
-
-    curr_player = 1;
 }
 
 /////Draw the game board////
@@ -83,6 +77,27 @@ void input()
         tempCol = colInput2;
         cout << "Enter Column Number: ";
         cin >> rowInput2;
+        tempRow = rowInput2;
+        curr_player = 1;
+    }
+}
+
+void single_input()
+{
+    if (curr_player == 1)
+    {
+        cout << "Enter Row Number: ";
+        cin >> colInput1;
+        tempCol = colInput1;
+        cout << "Enter Column Number: ";
+        cin >> rowInput1;
+        tempRow = rowInput1;
+        curr_player = 2;
+    }
+    else{
+        colInput2 = rand()%3;
+        tempCol = colInput2;
+        rowInput2 = rand()%3;
         tempRow = rowInput2;
         curr_player = 1;
     }
@@ -139,11 +154,6 @@ void logic()
     }
 }
 
-void test()
-{
-    
-}
-
 bool error_check()
 {
     ////check for input out of bounds
@@ -172,30 +182,82 @@ bool error_check()
 
 int main()
 {
-    setup();
-
-    /////Game Loop//////
-    while(!gameOver)
+    while (gameMode != 0)
     {
-        draw();
-        input();
-        if(error_check())
+        setup();
+        main_menu();
+        if (gameMode == 1)
         {
-            continue;
+            system("clear");
+            cout << "Player Name [X]: ";
+            cin >> player1;
+
+            curr_player = 1;
+
+            while(!gameOver)
+            {
+                draw();
+                single_input();
+                if (error_check())
+                {
+                    continue;
+                }
+                logic();
+            }
         }
-        logic();
-    }
+        else if (gameMode == 2) {
+            system("clear");
+            cout << "Player 1 [X]: ";
+            cin >> player1;
+        
+            ///error checking here for player 1 inpout format
+        
+        
+            ///////
+        
+            cout << "Player 2 [O]: ";
+            cin >> player2;
+        
+            //error checking here for player 2 input format
+        
+        
+        
+            /////
+        
+            curr_player = 1;
+            
+                /////Game Loop//////
+            while(!gameOver)
+            {
+                draw();
+                input();
+                if(error_check())
+                {
+                    continue;
+                }
+                logic();
+            }
+            
+            
+            ////Winner Announcement/////
+            system("clear");
+            draw();
+            cout << "Winner is ";
+            if (curr_player == 2)
+            {
+                cout << player1 << endl;
+            }
+            else{
+                cout << player2 <<endl;
+            }
+            cout << "Enter <ANY LETTER> to continue...";
+            char enter;
+            cin >> enter;
+        }
+        /*else if (gameMode == 3)
+        {
 
-
-    ////Winner Announcement/////
-    system("clear");
-    draw();
-    cout << "Winner is ";
-    if (curr_player == 2)
-    {
-        cout << player1 << endl;
+        }*/
     }
-    else{
-        cout << player2 <<endl;
-    }
+    
 }
