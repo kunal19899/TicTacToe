@@ -13,13 +13,13 @@ string player1;
 string player2;
 int colInput1, rowInput1, colInput2, rowInput2, tempCol, tempRow;
 int curr_player;
-int gameMode = -1;
+int gameMode;
 
 
 int main_menu()
 {
     system("clear");
-    cout << "TIC-TAC-TOE Game" << endl << endl << "Choose Game Mode" << endl << endl << "1. Single Player" << endl << "2. MultiPlayer" << endl << "3. Options" << endl;
+    cout << "TIC-TAC-TOE Game" << endl << endl << "Choose Game Mode" << endl << endl << "1. Single Player" << endl << "2. MultiPlayer" << endl << "3. Options" << endl << "0. Exit Game" << endl;
     cout << endl << "Which Mode: ";
     cin >> gameMode;
     if (gameMode > 3)
@@ -182,7 +182,7 @@ bool error_check()
 
 int main()
 {
-    while (gameMode != 0)
+    while (gameMode != -1)
     {
         setup();
         main_menu();
@@ -254,10 +254,25 @@ int main()
             char enter;
             cin >> enter;
         }
-        /*else if (gameMode == 3)
+        else if (gameMode == 3)
         {
+            system("clear");
+            cout << "HELP" << endl;
+            cout << "#################" << endl << endl;
+            
+            cout << "Game Mode 1: Play against a Computer." << endl;
+            cout << "Game Mode 2: Play against a friend." << endl << endl;
+            cout << "Enter Row # and Column # to make a play!" << endl << endl;
 
-        }*/
+            cout << "GOOD LUCK" << endl << endl;
+
+            cout << "Enter <ANY LETTER> to continue...";
+            char enter;
+            cin >> enter;
+        }
+        else{
+            exit(0);
+        }
     }
     
 }
